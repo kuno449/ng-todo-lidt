@@ -1,0 +1,23 @@
+<div class="container-sm">
+  <div class="page-title"><h3>Meine Aufgaben</h3></div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Datum</th>
+      <th scope="col">Titel</th>
+      <th scope="col">Beschreibung</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let task of tasks; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ task.date }}</td>
+      <td>{{ task.title }}</td>
+      <td>{{ task.description }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-primary" type="button" (click)="createNew()">Neue Task</button>
+</div>

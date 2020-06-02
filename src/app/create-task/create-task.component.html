@@ -1,0 +1,44 @@
+<div>
+  <div class="container-sm">
+    <div class="page-title"><h3>Create New Task</h3></div>
+    <form [formGroup]="createTaskForm" (ngSubmit)="createTask()">
+      <hr/>
+      <div class="row">
+        <div class="col-sm-6">Titel</div>
+        <div class="col-sm-6">
+          <label style="width: 100%">
+            <input class="form-control" type="text" formControlName="title"
+                   placeholder="Titel">
+          </label>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-6">Beschreibung</div>
+        <div class="col-sm-6">
+          <label style="width: 100%">
+            <input class="form-control" type="text" formControlName="description"
+                   placeholder="Beschreibung">
+          </label>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-6">Datum</div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <div class="input-group">
+              <input class="form-control" placeholder="jjjj-mm-tt"
+                     name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" formControlName="date">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <button type="submit" class="btn btn-primary">create</button>
+    </form>
+  </div>
+</div>
