@@ -4,6 +4,7 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 import {HttpClient} from '@angular/common/http';
 import {Task} from 'src/model/task';
+import {TodoService} from '../todo.service';
 
 @Component({
   selector: 'app-create-task',
@@ -15,7 +16,7 @@ export class CreateTaskComponent implements OnInit {
   model: NgbDateStruct;
   createTaskForm: FormGroup;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private todoService: TodoService) {
   }
 
   ngOnInit(): void {
@@ -38,11 +39,6 @@ export class CreateTaskComponent implements OnInit {
     const dateS = this.createTaskForm.controls.date.value;
     task.date = new Date(dateS.year, dateS.month, dateS.day);
 
-    this.httpClient.post<Task>('http://localhost:8080/api/tasks', task).subscribe(data => {
-      console.log(data);
-    }, error => {
-      console.log(error);
-    });
+    this.todoService.createTask(task);
   }
-
 }

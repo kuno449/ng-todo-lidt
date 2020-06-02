@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {Task} from 'src/model/task';
 import {Router} from '@angular/router';
+import {TodoService} from '../todo.service';
 
 @Component({
   selector: 'app-home',
@@ -11,17 +11,12 @@ import {Router} from '@angular/router';
 export class HomeComponent implements OnInit {
 
   constructor(private router: Router,
-              private httpClient: HttpClient) { }
+              private todoService: TodoService) { }
 
   tasks: Task[];
 
   ngOnInit(): void {
-    this.httpClient.get<Task[]>('http://localhost:8080/api/tasks').subscribe(data => {
-      console.log(JSON.stringify(data));
-      this.tasks = data;
-    }, error => {
-      console.log(error);
-    });
+      this.tasks = this.todoService.getAllTasks();
   }
 
   createNew() {
