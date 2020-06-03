@@ -1,48 +1,30 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Task } from 'src/model/task';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
 
-  MAXIMUM_NUMBER_TASKS = 5;
+  private baseUrl = 'http://localhost:8080/api/tasks';
 
   constructor(private httpClient: HttpClient) {}
 
-  public createTask(task: Task) {
-    if (this.getAllTasks().length < this.MAXIMUM_NUMBER_TASKS) { return; }
-    this.httpClient.post<Task>('http://localhost:8080/api/tasks', task).subscribe(data => {
-      console.log(data);
-    }, error => {
-      console.log(error);
-    });
+  public getAllTasks(): Observable<Task[]> {
+    return this.httpClient.get<Task[]>(this.baseUrl);
   }
 
-  // @ts-ignore
-  public getAllTasks(): Task[] {
-    this.httpClient.get<Task[]>('http://localhost:8080/api/tasks').subscribe(data => {
-      console.log(JSON.stringify(data));
-      return data;
-    }, error => {
-      console.log(error);
-    });
+  public createTask(task: Task): Observable<Task> {
+    return this.httpClient.post<Task>(this.baseUrl, task);
   }
 
-  public updateTask(taskID: number, task: Task) {
-    this.httpClient.put<void>('http://localhost:8080/api/taskstasks?id=' + taskID, {param: task}).subscribe(data => {
-      console.log(JSON.stringify(data));
-    }, error => {
-      console.log(error);
-    });
+  public updateTask(task: Task): Observable<Object> {
+    return this.httpClient.put(this.baseUrl + '/' + task.id, task);
   }
 
-  private deleteTask(taskID: number) {
-    this.httpClient.delete<void>('http://localhost:8080/api/tasks?id=' + taskID).subscribe(data => {
-      console.log(JSON.stringify(data));
-    }, error => {
-      console.log(error);
-    });
+  public deleteTask(taskID: number) {
+    return this.httpClient.delete(this.baseUrl + '/' + taskID);
   }
 }

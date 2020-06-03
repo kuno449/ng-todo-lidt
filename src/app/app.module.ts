@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CreateTaskComponent } from './create-task/create-task.component';
@@ -10,11 +10,14 @@ import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
 import {HttpClientModule} from '@angular/common/http';
 import {HomeComponent} from './home/home.component';
 
+import de from '@angular/common/locales/de';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(de, 'de');
+
 const routes: Routes = [
   {path: 'create', component: CreateTaskComponent},
   {path: '', component: HomeComponent}
 ];
-
 
 @NgModule({
   declarations: [
@@ -32,7 +35,9 @@ const routes: Routes = [
     FormsModule,
     RouterModule
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: "de"}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

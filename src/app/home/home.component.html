@@ -3,21 +3,23 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <th scope="col">id</th>
       <th scope="col">Datum</th>
       <th scope="col">Titel</th>
       <th scope="col">Beschreibung</th>
+      <th scope="col"></th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let task of tasks; index as i">
-      <th scope="row">{{ i + 1 }}</th>
-      <td>{{ task.date }}</td>
+      <td>{{ task.date | date: 'd MMM yyyy' }}</td>
       <td>{{ task.title }}</td>
       <td>{{ task.description }}</td>
+      <td style="max-width:100px"><button type="button" class="btn btn-info" (click)="editTask(task)" style="margin-right: 10px">Bearbeiten</button>
+      <button type="button" class="btn btn-danger" (click)="deleteTask(task)">Löschen</button></td>
     </tr>
     </tbody>
   </table>
-
-  <button class="btn btn-primary" type="button" (click)="createNew()">Neue Task</button>
+  <div class="row">
+    <button class="btn btn-primary" type="button" [disabled]="tasks?.length == 5" (click)="createNew()">Neue Task</button>
+  </div>
 </div>

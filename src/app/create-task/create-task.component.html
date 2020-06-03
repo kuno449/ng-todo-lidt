@@ -1,6 +1,6 @@
 <div>
   <div class="container-sm">
-    <div class="page-title"><h3>Create New Task</h3></div>
+    <div class="page-title"><h3>{{ isUpdate ? 'Task Bearbeiten' : 'Neue Task anlegen'}}</h3></div>
     <form [formGroup]="createTaskForm" (ngSubmit)="createTask()">
       <hr/>
       <div class="row">
@@ -17,8 +17,8 @@
         <div class="col-sm-6">Beschreibung</div>
         <div class="col-sm-6">
           <label style="width: 100%">
-            <input class="form-control" type="text" formControlName="description"
-                   placeholder="Beschreibung">
+            <textarea class="form-control" style="height: 200px" type="text" formControlName="description"
+                      placeholder="Beschreibung"></textarea>
           </label>
         </div>
       </div>
@@ -28,8 +28,8 @@
         <div class="col-sm-6">
           <div class="form-group">
             <div class="input-group">
-              <input class="form-control" placeholder="jjjj-mm-tt"
-                     name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" formControlName="date">
+              <input class="form-control" placeholder="JJJJ-MM-TT"
+                     name="dp" ngbDatepicker #d="ngbDatepicker" formControlName="date">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
               </div>
@@ -38,7 +38,10 @@
         </div>
       </div>
       <hr/>
-      <button type="submit" class="btn btn-primary">create</button>
+      <div class="row">
+        <button type="button" class="btn btn-info ml-auto mr-1" (click)="backToHome()">Zurück</button>
+        <button type="submit" class="btn btn-primary">{{ isUpdate ? 'Updaten' : 'Erstellen'}}</button>
+      </div>
     </form>
   </div>
 </div>
