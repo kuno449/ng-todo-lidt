@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Task} from 'src/model/task';
 import {Router} from '@angular/router';
 import {TodoService} from '../todo.service';
@@ -8,7 +8,7 @@ import {TodoService} from '../todo.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnChanges {
 
   constructor(private router: Router,
               private todoService: TodoService) { }
@@ -16,6 +16,10 @@ export class HomeComponent implements OnInit {
   tasks: Task[];
 
   ngOnInit(): void {
+    this.refresh();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
     this.refresh();
   }
 
